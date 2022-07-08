@@ -283,6 +283,7 @@ contract INVIToken is DetailedERC20, ERC20Token,Pausable{
 	}
 
 	function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused returns (bool){
+	    require(balances[_from].sub(_value) >= locker[_from],"ERC20: The amount sent cannot be greater than the number locked");
 	    require( _from != address(0) && _to != address(0), "ERC20: It should not be the first wallet..");
 
 		balances[_from] = balances[_from].sub(_value);
